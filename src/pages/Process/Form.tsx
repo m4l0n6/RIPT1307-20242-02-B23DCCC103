@@ -3,7 +3,7 @@ import { useModel } from 'umi';
 import { useEffect } from 'react';
 
 const FormProcess = () => {
-	const { row, isEdit, setVisible, addTask, updateTask } = useModel('process');
+	const { row, isEdit, setVisible, addOrUpdateTask } = useModel('process');
 	const [form] = Form.useForm();
 
 	useEffect(() => {
@@ -24,11 +24,7 @@ const FormProcess = () => {
 			time: row?.time || 0,
 		};
 
-		if (isEdit) {
-			updateTask(taskData);
-		} else {
-			addTask(taskData);
-		}
+		addOrUpdateTask(taskData);
 		setVisible(false);
 	};
 
@@ -47,7 +43,14 @@ const FormProcess = () => {
 				<Button htmlType='submit' type='primary'>
 					{isEdit ? 'Sửa' : 'Thêm mới'}
 				</Button>
-				<Button onClick={() => setVisible(false)}>Thoát</Button>
+				<Button
+					onClick={() => {
+						setVisible(false);
+						form.resetFields();
+					}}
+				>
+					Thoát
+				</Button>
 			</div>
 		</Form>
 	);

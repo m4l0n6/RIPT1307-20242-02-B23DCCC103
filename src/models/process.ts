@@ -1,43 +1,77 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 export default () => {
-    const [data, setData] = useState<Process.Record[]>([
-        { id: 1, name: 'Toán', content: 'Học giải tích', note: 'Học kiến thức', progress: false, time: 10 },
-        { id: 2, name: 'Văn', content: 'Học lý thuyết thông tin', note: 'Học kiến thức', progress: false, time: 3 },
-        { id: 3, name: 'Lập trình', content: 'Học lập trình', note: 'Học kiến thức', progress: false, time: 4 },
-    ])
-    const [visible, setVisible] = useState<boolean>(false);
+	const [data, setData] = useState<Process.Record[]>([]);
+	const [visible, setVisible] = useState<boolean>(false);
 	const [isEdit, setIsEdit] = useState<boolean>(false);
-    const [row, setRow] = useState<Process.Record>();
+	const [row, setRow] = useState<Process.Record>();
+	const timerRef = useRef<NodeJS.Timeout | null>(null);
 
-    const addTask = (task: Process.Record) => {
-        setData([...data, { ...task, id: Date.now() }]);
-    }
+	// Chạy 1 lần duy nhất khi component được render
+	useEffect(() => {
+		const savedData = JSON.parse(localStorage.getItem('process') || '[]');
+		setData(savedData);
+	}, []);
 
-    const updateTask = (task: Process.Record) => {
-        setData(data.map((item) => (item.id === task.id ? { ...task, time: task.progress ? item.time : task.time } : item)));
-    }
+	// Chạy mỗi khi data thay đổi
+	useEffect(() => {
+		localStorage.setItem('process', JSON.stringify(data));
+	}, [data]);
 
-    const deleteTask = (id: number) => {
-        setData(data.filter((item) => item.id !== id));
-    }
+	const toggleProgress = (id: number) => {
+		setData((prevData) =>
+			prevData.map((item) => {
+				if (item.id === id) {
+					// Nếu đang học => dừng
+					if (item.progress) {
+						if (timerRef.current) clearInterval(timerRef.current);
+						return { ...item, progress: false };
+					} else {
+						// Nếu chưa học => bắt đầu
+						if (timerRef.current) clearInterval(timerRef.current);
+						timerRef.current = setInterval(() => {
+							setData((innerPrevData) =>
+								innerPrevData.map((task) => (task.id === id ? { ...task, time: task.time + 1 } : task)),
+							);
+						}, 1000);
+						return { ...item, progress: true };
+					}
+				}
+				return item;
+			}),
+		);
+	};
 
-    const increaseTimeByOneSecond = (id: number) => {
-        setData(data.map((item) => (item.id === id ? { ...item, time: item.time + (1 / 60) } : item)));
-    }
+	// Thêm hoặc cập nhật môn học
+	const addOrUpdateTask = (task: Process.Record) => {
+		if (isEdit) {
+			const updateTask = data.map((item) => {
+				if (row && item.id === row.id) {
+					return { ...item, ...task };
+				}
+				return item;
+			});
+			setData(updateTask);
+		} else {
+			setData([...data, { ...task, id: Date.now() }]);
+		}
+	};
 
-    return{
-        visible,
-        setVisible,
-        isEdit,
-        setIsEdit,
-        row,
-        setRow,
-        data,
-        setData,
-        addTask,
-        updateTask,
-        deleteTask,
-        increaseTimeByOneSecond
-    }
-}
+	const deleteTask = (id: number) => {
+		setData(data.filter((item) => item.id !== id));
+	};
+
+	return {
+		visible,
+		setVisible,
+		isEdit,
+		setIsEdit,
+		row,
+		setRow,
+		data,
+		setData,
+		addOrUpdateTask,
+		deleteTask,
+		toggleProgress,
+	};
+};

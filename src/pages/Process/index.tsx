@@ -5,7 +5,7 @@ import './components/style.less';
 import { useModel } from 'umi';
 
 const Process = () => {
-	const { data, setVisible, setRow, isEdit, setIsEdit, visible, updateTask, deleteTask } = useModel('process');
+	const { data, setVisible, setRow, isEdit, setIsEdit, visible, deleteTask, toggleProgress } = useModel('process');
 	return (
 		<div style={{ padding: 20, background: '#fff', borderRadius: '10px' }}>
 			<h1>Tiến độ học tập</h1>
@@ -15,6 +15,7 @@ const Process = () => {
 					type='primary'
 					style={{ borderRadius: '5px', marginBottom: '10px' }}
 					onClick={(e) => {
+						setRow(undefined);
 						setVisible(true);
 						setIsEdit(false);
 					}}
@@ -45,7 +46,7 @@ const Process = () => {
 							</Tag>
 							<table style={{ marginBottom: '10px' }}>
 								<tr>
-									<td style={{ width: '8%', fontWeight: 'bold' }}>Nội dung:</td>
+									<td style={{ width: '8%', fontWeight: 'bold', paddingRight: '10px' }}>Nội dung:</td>
 									<td>{item.content}</td>
 								</tr>
 								<tr>
@@ -60,24 +61,15 @@ const Process = () => {
 									Tiến độ học tập
 								</Tag>
 								<Button
-									type='primary'
+									type={item.progress ? 'default' : 'primary'}
 									style={{ borderRadius: '5px', marginLeft: '10px' }}
-									onClick={() => {
-										updateTask({ ...item, progress: !item.progress });
-										if (item.progress) {
-											clearInterval(
-												setInterval(() => {
-													item.time * 3600;
-												}, 1000),
-											);
-										}
-									}}
+									onClick={() => toggleProgress(item.id)}
 								>
 									{item.progress ? 'Dừng' : 'Bắt đầu học'}
 								</Button>
 							</div>
-							<Progress status='active' percent={Math.floor((item.time / 30) * 100)} />
-							<p style={{ color: 'gray' }}>Thời gian học ngày này: {item.time} phút</p>
+							<Progress status='active' percent={Math.floor((item.time / 60 / 30) * 100)} />
+							<p style={{ color: 'gray' }}>Thời gian học ngày này: {Math.floor(item.time / 60)} phút</p>
 							{item.progress && <p style={{ color: 'green' }}>Đang học...</p>}
 						</div>
 					</Card>
@@ -89,9 +81,10 @@ const Process = () => {
 				visible={visible}
 				onOk={() => {}}
 				onCancel={() => {
+					setRow(undefined);
 					setVisible(false);
 				}}
-				title={isEdit ? 'Edit task' : 'Add task'}
+				title={isEdit ? 'Sửa môn học' : 'Thêm môn học'}
 			>
 				<FormProcess></FormProcess>
 			</Modal>
