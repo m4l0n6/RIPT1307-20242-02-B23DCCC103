@@ -54,7 +54,40 @@
 		component: './Process',
 		icon: 'RiseOutlined'
 	},
+	{
+		path: '/onetwothree',
+		name: 'Oẳn tù tì ',
+		component: './OneTwoThree',
+		icon: 'RobotFilled'
+	},
+	{
+		name: 'Ngân hàng câu hỏi',
+		path: '/quan-ly',
+		icon: '📃',
+		routes: [
+		{
+			name: 'Môn học',
+			path: 'mon-hoc',
+			component: './QuanLy/MonHoc',
+		}, 
+		{
+			name: 'Câu hỏi',
+			path: 'cau-hoi',
+			component: './QuanLy/CauHoi',
+		},
+		{
+			name: 'Tạo đề thi',
+			path: 'tao-de-thi',
+			component: './QuanLy/TaoDeThi',
+		},
+		{
+			name: 'Danh sách đề thi',
+			path: 'danh-sach-de-thi',
+			component: './QuanLy/DanhSachDeThi',
+		}
+		]
 
+	},
 	// DANH MUC HE THONG
 	// {
 	// 	name: 'DanhMuc',

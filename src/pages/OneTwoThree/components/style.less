@@ -1,0 +1,228 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    position: relative;
+    background: linear-gradient(45deg,
+                #3498db,
+                #2ecc71);
+    padding: 20px 0;
+
+    .game-wrapper {
+        width: 380px;
+        max-height: 800px;
+        background-color: white;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        overflow: hidden;
+    }
+
+        .title {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+    
+        .score-board {
+            border: 2px solid black;
+            width: 50%;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            margin: 20px;
+            position: relative;
+    
+            h1 {
+                margin: 0 4px;
+            }
+        }
+    
+        .player-label,
+        .bot-label {
+            position: absolute;
+            background: #eee;
+            border-radius: 10px;
+            padding: 2px;
+            width: 54px;
+            text-align: center;
+        }
+    
+        .player-label {
+            left: -30px;
+        }
+    
+        .bot-label {
+            right: -30px;
+        }
+    
+        .result-text {
+            text-align: center;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+    
+        .tie-result {
+            color: gray;
+        }
+    
+        .player-win {
+            color: green;
+        }
+    
+        .bot-win {
+            color: red;
+        }
+    
+        .choice-display {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+    
+        .choice {
+            font-size: 100px;
+            margin: 0 20px;
+            opacity: 0.5;
+        }
+    
+        .game-controls {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+    
+        .choice-buttons {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+    
+        .choice-button {
+            font-size: 60px;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 10px;
+            transition: background-color 0.3s;
+    
+            &:hover {
+                background-color: #f0f0f0;
+            }
+        }
+    
+        .selected-choice {
+            background-color: #e0e0e0;
+        }
+    
+        .reset-button {
+            padding: 10px 20px;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+    
+            &:hover {
+                background-color: #e0e0e0;
+            }
+        }
+
+    .action-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 10px;
+    }
+
+    .history-button,
+    .reset-button,
+    .clear-history-button {
+        padding: 10px 20px;
+        background-color: #f0f0f0;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+
+        &:hover {
+            background-color: #e0e0e0;
+        }
+    }
+
+    .game-history {
+        width: 30%;
+        position: absolute;
+        right: 40px;
+        padding: 16px;
+        border-radius: 10px;
+        background: white;
+        max-height: 380px;
+        overflow-y: auto;
+        border-top: 1px solid #eee;
+        margin-top: 10px;
+    }
+
+    .history-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 0;
+
+        h3 {
+            margin: 0;
+        }
+    }
+
+    .history-list {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .history-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px;
+        border-bottom: 1px solid #f0f0f0;
+
+        .history-choice {
+            font-size: 20px;
+            margin: 0 10px;
+        }
+
+        .history-result {
+            font-weight: bold;
+        }
+    }
+
+    .tie-result {
+        color: gray;
+    }
+
+    .player-win {
+        color: green;
+    }
+
+    .bot-win {
+        color: red;
+    }
+}
+.container::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(90deg,
+            rgba(255, 255, 255, 0.1) 1px,
+            transparent 1px),
+        linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+    background-size: 20px 20px;
+    pointer-events: none;
+    /* Allow clicking through the pattern layer */
+}
