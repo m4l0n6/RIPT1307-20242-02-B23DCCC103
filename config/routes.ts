@@ -1,4 +1,7 @@
-﻿export default [
+﻿import route from "mock/route";
+import path from "path";
+
+export default [
 	{
 		path: '/user',
 		layout: false,
@@ -65,28 +68,67 @@
 		path: '/quan-ly',
 		icon: '📃',
 		routes: [
-		{
-			name: 'Môn học',
-			path: 'mon-hoc',
-			component: './QuanLy/MonHoc',
-		}, 
-		{
-			name: 'Câu hỏi',
-			path: 'cau-hoi',
-			component: './QuanLy/CauHoi',
-		},
-		{
-			name: 'Tạo đề thi',
-			path: 'tao-de-thi',
-			component: './QuanLy/TaoDeThi',
-		},
-		{
-			name: 'Danh sách đề thi',
-			path: 'danh-sach-de-thi',
-			component: './QuanLy/DanhSachDeThi',
-		}
+			{
+				name: 'Môn học',
+				path: 'mon-hoc',
+				component: './QuanLy/MonHoc',
+			}, 
+			{
+				name: 'Câu hỏi',
+				path: 'cau-hoi',
+				component: './QuanLy/CauHoi',
+			},
+			{
+				name: 'Tạo đề thi',
+				path: 'tao-de-thi',
+				component: './QuanLy/TaoDeThi',
+			},
+			{
+				name: 'Danh sách đề thi',
+				path: 'danh-sach-de-thi',
+				component: './QuanLy/DanhSachDeThi',
+			}
 		]
-
+	},
+	{
+		name: "Đặt lịch hẹn",
+		path: '/dat-lich-hen',
+		icon: '📅',
+		routes: [
+			{
+				name: 'Quản nhân viên và dịch vụ',
+				path: 'quan-ly',
+				routes: [
+					{
+						name: 'Quản lý nhân viên',
+						path: 'nhan-vien',
+						exact: true,
+						component: './DatLichHen/QuanLyNhanVienDichVu/NhanVien',
+					},
+					{
+						name: 'Quản lý dịch vụ',
+						path: 'dich-vu',
+						exact: true,
+						component: './DatLichHen/QuanLyNhanVienDichVu/DichVu',
+					}
+				]
+			},
+			{
+				name: 'Quản lý lịch hẹn',
+				path: 'quan-ly-lich-hen',
+				component: './DatLichHen/QuanLyLichHen',
+			},
+			{
+				name: 'Đánh giá dịch vụ',
+				path: 'danh-gia-dich-vu',
+				component: './DatLichHen/DanhGiaDichVu',
+			},
+			{
+				name: 'Thống kê',
+				path: 'thong-ke',
+				component: './DatLichHen/ThongKe',
+			}
+		]
 	},
 	// DANH MUC HE THONG
 	// {

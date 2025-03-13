@@ -3,16 +3,8 @@ import { useModel } from 'umi';
 
 const FormCauhoi = () => {
 	const [form] = Form.useForm();
-	const {
-		setVisible,
-		questionList,
-		addOrUpdateQuestion,
-		row,
-		isEdit,
-		courses,
-		filteredKnowledgeBlocks,
-		filterKnowledgeBlocks,
-	} = useModel('QuanLy.cauhoi');
+	const { setVisible, addOrUpdateQuestion, row, isEdit, courses, filteredKnowledgeBlocks, filterKnowledgeBlocks } =
+		useModel('QuanLy.cauhoi');
 
 	const handleSubmit = (values: {
 		question_content: string;
