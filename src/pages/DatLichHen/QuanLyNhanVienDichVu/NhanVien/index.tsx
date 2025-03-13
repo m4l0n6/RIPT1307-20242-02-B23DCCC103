@@ -1,14 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Input, InputNumber, Button, Card, List, message, Modal, Select, TimePicker } from 'antd';
 import moment from 'moment';
-
-interface Employee {
-	name: string;
-	service: string;
-	maxCustomers: number;
-	workStart: string;
-	workEnd: string;
-}
+import { Employee } from '@/services/DatLichHen/NhanVienDichVu/NhanVien/typing';
 
 const NhanVien = () => {
 	const [form] = Form.useForm();

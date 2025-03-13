@@ -1,12 +1,6 @@
 import { useState } from 'react';
 import { Form, Input, InputNumber, Button, Card, List, message, Modal } from 'antd';
-
-interface Service {
-	name: string;
-	description: string;
-	price: number;
-	duration: number;
-}
+import { Service } from '@/services/DatLichHen/NhanVienDichVu/DichVu/typing';
 
 const DichVu = () => {
 	const [form] = Form.useForm();
